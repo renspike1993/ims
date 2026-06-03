@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CSV Data</title>
+</head>
+<body>
+
+    <h1>CSV Records</h1>
+
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+
+    {% if data %}
+
+        <table border="1">
+
+            <thead>
+                <tr>
+
+                    {% for key in data.0.keys %}
+                        <th>{{ key }}</th>
+                    {% endfor %}
+
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for row in data %}
+                <tr>
+
+                    {% for value in row.values %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+
+                </tr>
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    {% endif %}
+
+</body>
+</html>
