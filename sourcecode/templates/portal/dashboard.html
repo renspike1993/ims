@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- HEADER -->
+    <div class="bg-white border-b px-6 py-4 flex justify-between items-center sticky top-0 z-20">
+
+        <!-- LEFT: LOGO + TITLE -->
+        <div class="flex items-center gap-3">
+
+            <img src="{% static 'images/moist.png' %}" class="w-10 h-10 object-contain opacity-90" alt="School Logo">
+
+            <div>
+                <h1 class="font-semibold text-lg tracking-tight">
+                    Entrance Examination
+                </h1>
+                <p class="text-xs text-gray-500">
+                    {{ examinee.exam_taken.exam_name }}
+                </p>
+            </div>
+
+        </div>
+
+        <!-- TIMER -->
+        <div class="text-right">
+            <p class="text-[11px] uppercase text-gray-400 tracking-wide">
+                Time Remaining
+            </p>
+
+            <p id="timer" class="font-mono text-lg font-medium text-gray-700">
+                --:--:--
+            </p>
+        </div>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div class="max-w-5xl mx-auto px-6 py-8">
+
+        <!-- STUDENT INFO (MINIMAL CARDS) -->
+        <div class="grid grid-cols-3 gap-3 mb-8 text-sm">
+
+
+            <div class="bg-white border rounded-lg p-3">
+                <p class="text-xs text-gray-400">OR NUMBER</p>
+                <p class="font-medium">{{ examinee.or_number }}</p>
+            </div>
+
+            <div class="bg-white border rounded-lg p-3">
+                <p class="text-xs text-gray-400">Name</p>
+                <p class="font-medium">{{ examinee.full_name }}</p>
+            </div>
+
+            <div class="bg-white border rounded-lg p-3">
+                <p class="text-xs text-gray-400">Program</p>
+                <p class="font-medium">{{ examinee.get_program_display }}</p>
+            </div>
+
+
+        </div>
+
+        <form method="POST" action="{% url 'submit_answers' %}">
+            {% csrf_token %}
+
+            {% for category, questions in categories.items %}
+
+            <!-- CATEGORY (MINIMAL STYLE) -->
+            <div class="mb-6">
+
+                <h2 class="text-sm font-semibold text-gray-600 uppercase tracking-wider">
+                    {{ category.category_name }}
+                </h2>
+
+                {% if category.description %}
+                <p class="text-xs text-gray-400 mt-1 mb-3">
+                    {{ category.description }}
+                </p>
+                {% endif %}
+
+            </div>
+
+            <!-- QUESTIONS -->
+            {% for q in questions %}
+
+            <div class="bg-white border rounded-lg p-4 mb-3">
+
+                <!-- QUESTION -->
+                <p class="text-sm font-normal mb-3">
+                    {{ forloop.counter }}. {{ q.question }}
+                </p>
+
+                <!-- OPTIONS -->
+                <div class="space-y-2 text-sm">
+
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="answer_{{ q.id }}" value="A" class="accent-gray-700">
+                        <span>A. {{ q.option_a }}</span>
+                    </label>
+
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="answer_{{ q.id }}" value="B" class="accent-gray-700">
+                        <span>B. {{ q.option_b }}</span>
+                    </label>
+
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="answer_{{ q.id }}" value="C" class="accent-gray-700">
+                        <span>C. {{ q.option_c }}</span>
+                    </label>
+
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="answer_{{ q.id }}" value="D" class="accent-gray-700">
+                        <span>D. {{ q.option_d }}</span>
+                    </label>
+
+                    {% if q.option_e %}
+                    <label class="flex items-center gap-2 cursor-pointer">
+                        <input type="radio" name="answer_{{ q.id }}" value="E" class="accent-gray-700">
+                        <span>E. {{ q.option_e }}</span>
+                    </label>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+            {% endfor %}
+
+            <!-- SUBMIT -->
+            <div class="mt-6">
+                <button type="submit"
+                    class="w-full bg-gray-800 hover:bg-black text-white py-3 rounded-lg text-sm font-medium transition">
+                    Submit Answers
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+
+    <!-- TIMER SCRIPT -->
+    <script>
+        const duration = {{ examinee.exam_taken.duration }} * 60;
+        const startTime = {{ start_time }};
+
+        const timerEl = document.getElementById("timer");
+
+        function updateTimer() {
+            const now = Math.floor(Date.now() / 1000);
+            const elapsed = now - startTime;
+
+            let remaining = duration - elapsed;
+
+            if (remaining <= 0) {
+                timerEl.innerHTML = "00:00:00";
+                document.querySelector("form").submit();
+                return;
+            }
+
+            let hours = String(Math.floor(remaining / 3600)).padStart(2, "0");
+            let minutes = String(Math.floor((remaining % 3600) / 60)).padStart(2, "0");
+            let seconds = String(Math.floor(remaining % 60)).padStart(2, "0");
+
+            timerEl.innerHTML = `${hours}:${minutes}:${seconds}`;
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+    </script>
+
+</body>
+
+</html>

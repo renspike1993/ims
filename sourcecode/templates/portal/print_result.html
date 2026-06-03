@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exam Result</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+        @media print {
+            .no-print { display: none; }
+
+            body {
+                margin: 0;
+                padding: 0;
+                background: white;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 text-sm">
+
+<!-- Print Button -->
+<div class="p-3 no-print">
+    <button onclick="window.print()" class="bg-blue-600 text-white px-4 py-2 rounded">
+        Print Result
+    </button>
+</div>
+
+<!-- RESULT CARD -->
+<div class="w-[520px] mx-auto bg-white border p-5">
+
+    <!-- HEADER -->
+    <div class="flex items-center gap-3 border-b pb-3">
+
+        <img src="{% static 'images/moist.png' %}"
+             class="w-14 h-14 object-contain">
+
+        <div>
+            <h1 class="text-base font-bold">
+                Entrance Examination Result
+            </h1>
+            <p class="text-xs text-gray-500">
+                Official Academic Assessment Report
+            </p>
+        </div>
+
+    </div>
+
+    <!-- EXAM INFO -->
+    <div class="mt-3 flex justify-between text-xs text-gray-600">
+
+        <div>
+            <p><span class="font-semibold">Exam:</span> {{ examinee.exam_taken }}</p>
+            <p><span class="font-semibold">Program:</span> {{ examinee.get_program_display }}</p>
+        </div>
+
+        <div class="text-right">
+            <p><span class="font-semibold">OR No:</span> {{ examinee.or_number }}</p>
+            <p>{% now "M d, Y h:i A" %}</p>
+        </div>
+
+    </div>
+
+    <!-- STUDENT INFO -->
+    <div class="mt-3 border-t pt-2 text-xs">
+
+        <p><span class="font-semibold">Name:</span> {{ examinee.full_name }}</p>
+
+    </div>
+
+
+    <!-- CATEGORY BREAKDOWN -->
+    <div class="mt-4 border-t pt-3">
+
+        <h2 class="font-bold text-sm mb-2">
+            Category Performance
+        </h2>
+
+        <table class="w-full text-xs border">
+
+            <thead class="bg-gray-100">
+                <tr>
+                    <th class="border px-2 py-1 text-left">Category</th>
+                    <th class="border px-2 py-1">Correct</th>
+                    <th class="border px-2 py-1">Total</th>
+                    <th class="border px-2 py-1">%</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for category, data in category_scores.items %}
+                <tr>
+
+                    <td class="border px-2 py-1">
+                        {{ category }}
+                    </td>
+
+                    <td class="border text-center">
+                        {{ data.correct }}
+                    </td>
+
+                    <td class="border text-center">
+                        {{ data.total }}
+                    </td>
+
+                    <td class="border text-center">
+                        {% widthratio data.correct data.total 100 %}%
+                    </td>
+
+                </tr>
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="mt-4 text-[10px] text-center text-gray-500 border-t pt-2">
+        This is an official examination result. Generated automatically by the system.
+    </div>
+
+</div>
+
+</body>
+</html>

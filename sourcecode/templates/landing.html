@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pick N Drop Delivery | Premium Courier Service</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.015em;
+        }
+        
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
+        }
+        
+        .hover-lift {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background-color: rgba(59, 130, 246, 0.08);
+            margin: 0 auto 20px;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 antialiased">
+
+    <!-- Minimal Navbar -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
+        <div class="max-w-6xl mx-auto px-6 py-5 flex justify-between items-center">
+            <div class="flex items-center space-x-1">
+                <div class="w-8 h-8 bg-blue-600 rounded-md flex items-center justify-center">
+                    <span class="text-white font-semibold text-sm">PND</span>
+                </div>
+                <h1 class="text-lg font-semibold text-gray-900 tracking-tight">Pick N Drop</h1>
+            </div>
+
+            <nav class="flex items-center space-x-8">
+                <a href="{% url 'customer-login' %}" 
+                   class="text-sm text-gray-600 hover:text-blue-600 font-medium transition-colors duration-200">
+                    Sign In
+                </a>
+                <a href="{% url 'customer-register' %}"
+                   class="text-sm bg-blue-600 text-white px-5 py-2.5 rounded-md font-medium hover:bg-blue-700 transition-all duration-200 hover-lift">
+                    Get Started
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pt-16 pb-24">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto">
+                <span class="inline-block text-blue-600 text-sm font-medium tracking-wide uppercase mb-4">Premium Delivery Service</span>
+                <h1 class="text-4xl md:text-5xl font-light text-gray-900 leading-tight tracking-tight mb-6">
+                    <span class="font-semibold">Quick, Reliable</span> Deliveries 
+                    <br>in Minutes
+                </h1>
+                <p class="text-lg text-gray-600 font-light max-w-2xl mx-auto leading-relaxed mb-10">
+                    Experience premium delivery with real-time tracking, instant rider matching, and seamless payments via GCash or Cash on Delivery.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center mb-20">
+                    <a href="{% url 'customer-register' %}"
+                       class="bg-blue-600 text-white px-8 py-3.5 rounded-md font-medium hover:bg-blue-700 transition-all duration-200 hover-lift shadow-sm">
+                        Start Delivering Today
+                    </a>
+                    <a href="#how-it-works"
+                       class="border border-gray-300 text-gray-700 px-8 py-3.5 rounded-md font-medium hover:bg-gray-50 transition-all duration-200">
+                        Learn More
+                    </a>
+                </div>
+                
+                <!-- Stats -->
+                <div class="grid grid-cols-3 gap-8 max-w-xl mx-auto pt-10 border-t border-gray-100">
+                    <div class="text-center">
+                        <div class="text-2xl font-semibold text-gray-900 mb-1">5K+</div>
+                        <div class="text-sm text-gray-500 font-medium">Active Riders</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-semibold text-gray-900 mb-1">24/7</div>
+                        <div class="text-sm text-gray-500 font-medium">Service</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-semibold text-gray-900 mb-1">98%</div>
+                        <div class="text-sm text-gray-500 font-medium">Satisfaction</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="section-divider max-w-4xl mx-auto"></div>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-20">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl font-semibold text-gray-900 mb-4">How It Works</h2>
+                <p class="text-gray-600 font-light text-lg">Simple, elegant, and efficient delivery process</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="text-center">
+                    <div class="feature-icon">
+                        <span class="text-blue-600 text-xl">1</span>
+                    </div>
+                    <h4 class="font-semibold text-lg mb-3 text-gray-900">Create Order</h4>
+                    <p class="text-gray-600 font-light leading-relaxed">
+                        Enter pickup & delivery details in our clean, intuitive interface.
+                    </p>
+                </div>
+
+                <div class="text-center">
+                    <div class="feature-icon">
+                        <span class="text-blue-600 text-xl">2</span>
+                    </div>
+                    <h4 class="font-semibold text-lg mb-3 text-gray-900">Match Rider</h4>
+                    <p class="text-gray-600 font-light leading-relaxed">
+                        Our algorithm instantly finds the best available rider for your route.
+                    </p>
+                </div>
+
+                <div class="text-center">
+                    <div class="feature-icon">
+                        <span class="text-blue-600 text-xl">3</span>
+                    </div>
+                    <h4 class="font-semibold text-lg mb-3 text-gray-900">Track & Pay</h4>
+                    <p class="text-gray-600 font-light leading-relaxed">
+                        Monitor delivery in real-time and pay securely via GCash or Cash.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Divider -->
+    <div class="section-divider max-w-4xl mx-auto"></div>
+
+    <!-- CTA Section -->
+    <section class="py-20">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="bg-gradient-to-br from-blue-50 to-white rounded-2xl p-12 border border-blue-100">
+                <h3 class="text-3xl font-semibold text-gray-900 mb-6">
+                    Ready for Premium Delivery?
+                </h3>
+                <p class="text-gray-600 text-lg font-light max-w-xl mx-auto mb-10">
+                    Join thousands of satisfied customers using Pick N Drop for their delivery needs.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="{% url 'customer-register' %}"
+                       class="bg-blue-600 text-white px-8 py-3.5 rounded-md font-medium hover:bg-blue-700 transition-all duration-200 hover-lift">
+                        Create Your Account
+                    </a>
+                    <a href="#"
+                       class="border border-blue-200 text-blue-600 px-8 py-3.5 rounded-md font-medium hover:bg-blue-50 transition-all duration-200">
+                        Schedule a Demo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 border-t border-gray-100 py-10">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-2 mb-6 md:mb-0">
+                    <div class="w-7 h-7 bg-blue-600 rounded-md flex items-center justify-center">
+                        <span class="text-white font-semibold text-xs">PND</span>
+                    </div>
+                    <p class="text-sm text-gray-600 font-medium">
+                        © <span id="current-year">2024</span> Pick N Drop Delivery
+                    </p>
+                </div>
+                
+                <div class="flex items-center space-x-8">
+                    <a href="#" class="text-sm text-gray-500 hover:text-blue-600 transition-colors duration-200">Privacy Policy</a>
+                    <a href="#" class="text-sm text-gray-500 hover:text-blue-600 transition-colors duration-200">Terms of Service</a>
+                    <a href="#" class="text-sm text-gray-500 hover:text-blue-600 transition-colors duration-200">Contact</a>
+                    <a href="#" class="text-sm text-gray-500 hover:text-blue-600 transition-colors duration-200">Support</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

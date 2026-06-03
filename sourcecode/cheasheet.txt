@@ -1,0 +1,64 @@
+python manage.py startapp users applications/core
+
+python manage.py makemigrations _library --empty --name seed_books
+
+
+
+
+class Payment(models.Model):
+    STATUS_CHOICES = [
+        ('pending', 'Not Paid'),
+        ('completed', 'Paid'),
+        ('cancel', 'Cancel'),
+    ]
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_payment',default=None)
+    service =  models.ForeignKey(Services, on_delete=models.CASCADE, related_name='user_service',default=None)
+    payment_date = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    or_number = models.CharField(max_length=100, unique=True, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
+
+    class Meta:
+        verbose_name = "Payment"
+        verbose_name_plural = "Payments"
+        unique_together = ['user','service','status']
+
+    def __str__(self):
+        return f"{self.user.username}  - {self.status}"
+
+
+
+        # Student Portal
+        "guidance.exam": "fas fa-pen-alt",
+        "guidance.ExamCategory": "fas fa-layer-group",
+
+        # Entrance Exam
+        "entrance_exam": "fas fa-clipboard-check",
+        "entrance_exam.examinee": "fas fa-user-graduate",
+        "entrance_exam.question": "fas fa-question-circle",
+        "entrance_exam.answer": "fas fa-pen-alt",
+
+
+        # Library
+        "library": "fas fa-book",
+        "library.borrow": "fas fa-book-reader",
+        "library.collections": "fas fa-book-reader",
+
+        # Finance
+        "_finance": "fas fa-cash-register",
+        "_finance.payment": "fas fa-money-bill-wave",
+        "_finance.service": "fas fa-file-invoice-dollar",
+
+        # Registrar
+        "registrar": "fas fa-school",
+        "registrar.record": "fas fa-archive",
+
+        # LMS
+        "lms": "fas fa-chalkboard-teacher",
+        "lms.course": "fas fa-layer-group",
+
+        # Auth
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "auth.group": "fas fa-users",
