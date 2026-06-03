@@ -72,6 +72,7 @@ class FolderAdmin(admin.ModelAdmin):
 class StudentDocumentAdmin(admin.ModelAdmin):
 
     list_display = (
+        "id",
         "last_name",
         "first_name",
         "middle_name",
